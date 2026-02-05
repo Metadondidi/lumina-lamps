@@ -61,12 +61,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
       ref={cardRef}
       className="group relative"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false)
-        if (!showColorPicker) {
-          setShowColorPicker(false)
-        }
-      }}
+    onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image avec switch on/off selon scroll ET hover */}
       <Link
