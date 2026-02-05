@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Variables CSS personnalisées
+   ============================================ */
+:root {
+  /* Couleurs */
+  --color-ivory: #FDFBF7;
+  --color-cream: #F8F6F1;
+  --color-sand: #EBE6DC;
+  --color-stone: #9A9590;
+  --color-charcoal: #2C2826;
+  --color-ink: #1A1816;
+  --color-champagne: #D4C4A8;
+  --color-blush: #E8DDD4;
+  
+  /* Timing */
+  --transition-fast: 200ms;
+  --transition-base: 400ms;
+  --transition-slow: 600ms;
+  --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ============================================
+   Reset et styles de base
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-ivory text-charcoal font-body;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ============================================
+   Typographie
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display font-normal;
+}
+
+/* ============================================
+   Sélection de texte
+   ============================================ */
+::selection {
+  background-color: var(--color-champagne);
+  color: var(--color-ink);
+}
+
+/* ============================================
+   Scrollbar personnalisée (webkit)
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-charcoal);
+}
+
+/* ============================================
+   Focus visible pour accessibilité
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-charcoal);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Classes utilitaires personnalisées
+   ============================================ */
+@layer utilities {
+  /* Container avec padding responsive */
+  .container-luxury {
+    @apply max-w-7xl mx-auto px-6 md:px-10 lg:px-16;
+  }
+  
+  /* Lien soulignement animé */
+  .link-underline {
+    @apply relative inline-block;
+  }
+  
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-charcoal;
+    transition: width var(--transition-base) var(--ease-luxury);
+  }
+  
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+  
+  /* Animation de fade-in avec délais */
+  .animate-stagger-1 { animation-delay: 100ms; }
+  .animate-stagger-2 { animation-delay: 200ms; }
+  .animate-stagger-3 { animation-delay: 300ms; }
+  .animate-stagger-4 { animation-delay: 400ms; }
+  .animate-stagger-5 { animation-delay: 500ms; }
+  .animate-stagger-6 { animation-delay: 600ms; }
+}
+
+/* ============================================
+   Transitions d'images au survol
+   ============================================ */
+.image-hover-zoom {
+  @apply overflow-hidden;
+}
+
+.image-hover-zoom img {
+  transition: transform var(--transition-slow) var(--ease-luxury);
+}
+
+.image-hover-zoom:hover img {
+  transform: scale(1.03);
+}
+
+/* ============================================
+   Animation du panier
+   ============================================ */
+.cart-drawer-overlay {
+  @apply fixed inset-0 bg-ink/30 z-40;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 300ms ease-out forwards;
+}
+
+.cart-drawer {
+  animation: slideInRight 400ms var(--ease-luxury) forwards;
+}
+
+.cart-drawer-closing {
+  animation: slideOutRight 400ms var(--ease-luxury) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+/* ============================================
+   Animation de chargement des pages
+   ============================================ */
+.page-enter {
+  @apply opacity-0;
+  animation: pageEnter 800ms var(--ease-luxury) forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   Bouton principal
+   ============================================ */
+.btn-primary {
+  @apply relative overflow-hidden bg-charcoal text-ivory px-8 py-4 font-body text-caption uppercase tracking-widest;
+  transition: all var(--transition-base) var(--ease-luxury);
+}
+
+.btn-primary::before {
+  content: '';
+  @apply absolute inset-0 bg-ink;
+  transform: translateX(-100%);
+  transition: transform var(--transition-base) var(--ease-luxury);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0);
+}
+
+.btn-primary span {
+  @apply relative z-10;
+}
+
+/* ============================================
+   Bouton secondaire
+   ============================================ */
+.btn-secondary {
+  @apply relative px-8 py-4 font-body text-caption uppercase tracking-widest text-charcoal border border-charcoal;
+  transition: all var(--transition-base) var(--ease-luxury);
+}
+
+.btn-secondary:hover {
+  @apply bg-charcoal text-ivory;
+}
